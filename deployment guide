@@ -1,0 +1,202 @@
+
+DEPLOYMENT GUIDE DML PROJECT
+=============================
+
+PROJECT OVERVIEW
+----------------
+The DML Project is an end-to-end Machine Learning and MLOps implementation for Breast Cancer Classification.
+It demonstrates the complete ML lifecycle including data preprocessing, model training, evaluation,
+deployment, monitoring, and explainability. The project is designed for academic and educational purposes
+and follows standard MLOps best practices.
+
+The deployment supports:
+- Local execution
+- REST API deployment using FastAPI
+- UI deployment using Streamlit
+- Containerized deployment using Docker
+- Pipeline orchestration and monitoring
+
+------------------------------------------------------------
+
+SYSTEM REQUIREMENTS
+-------------------
+Software:
+- Python version 3.8 or above
+- Git
+- pip (Python package manager)
+- Docker and Docker Compose (optional)
+
+Python Libraries:
+- numpy
+- pandas
+- scikit-learn
+- mlflow
+- fastapi
+- uvicorn
+- streamlit
+- shap
+- dvc (optional)
+
+All dependencies are listed in requirements.txt.
+
+------------------------------------------------------------
+
+STEP 1: CLONE THE REPOSITORY
+----------------------------
+Clone the project repository from GitHub:
+
+git clone https://github.com/Diprajyoti/DML-Project.git
+cd DML-Project
+
+------------------------------------------------------------
+
+STEP 2: ENVIRONMENT SETUP
+-------------------------
+Create and activate a virtual environment:
+
+python -m venv venv
+source venv/bin/activate        (Linux / macOS)
+venv\Scripts\activate         (Windows)
+
+Install required dependencies:
+
+pip install --upgrade pip
+pip install -r requirements.txt
+
+------------------------------------------------------------
+
+STEP 3: PIPELINE EXECUTION
+--------------------------
+Run the complete machine learning pipeline using:
+
+python workflows/pipeline.py
+
+This step performs:
+1. Data loading and preprocessing
+2. Feature engineering
+3. Model training
+4. Model evaluation
+5. Model saving and versioning
+
+Trained models are stored in the models/ directory.
+
+------------------------------------------------------------
+
+STEP 4: MODEL SERVING USING FASTAPI
+----------------------------------
+Start the FastAPI server using:
+
+uvicorn deployment.app:app --reload
+
+API Access:
+- Base URL: http://localhost:8000
+- Swagger Documentation: http://localhost:8000/docs
+
+The API accepts input features and returns prediction results in JSON format.
+
+------------------------------------------------------------
+
+STEP 5: USER INTERFACE USING STREAMLIT
+-------------------------------------
+Launch the Streamlit application:
+
+streamlit run deployment/streamlit_app.py
+
+Access the UI at:
+http://localhost:8501
+
+The UI allows users to input data and visualize prediction results interactively.
+
+------------------------------------------------------------
+
+STEP 6: EXPLAINABILITY AND MONITORING
+------------------------------------
+Explainability Dashboard (SHAP):
+
+streamlit run deployment/shap_dashboard.py
+Access at: http://localhost:8502
+
+Monitoring Script:
+
+python src/monitor.py
+
+Monitoring reports are generated and stored in the reports/ directory.
+
+------------------------------------------------------------
+
+STEP 7: DOCKER DEPLOYMENT
+------------------------
+Build the Docker image:
+
+docker build -f docker/Dockerfile -t dml-project .
+
+Run the Docker container:
+
+docker run -d -p 8000:8000 dml-project
+
+The API will be available at http://localhost:8000
+
+------------------------------------------------------------
+
+DOCKER COMPOSE (OPTIONAL)
+------------------------
+To deploy multiple services together:
+
+docker-compose up -d
+
+To stop services:
+
+docker-compose down
+
+------------------------------------------------------------
+
+PROJECT STRUCTURE
+-----------------
+DML-Project/
+data/               (Datasets)
+deployment/         (API and UI)
+docker/             (Docker configuration)
+models/             (Trained models)
+notebooks/          (Experiments)
+reports/            (Monitoring outputs)
+src/                (Core ML logic)
+workflows/          (Pipeline orchestration)
+docker-compose.yml
+requirements.txt
+README.md
+
+------------------------------------------------------------
+
+CONTRIBUTIONS
+-------------
+This project was developed collaboratively with contributions across multiple areas.
+
+Name: Diprajyoti Majumdar
+Contribution:
+- Project architecture and design
+- Machine learning pipeline implementation
+- Model training and evaluation
+- FastAPI backend development
+- Docker configuration
+
+Name: Divyansh Malik
+Contribution:
+- Data preprocessing
+- Feature engineering
+- Model experimentation and validation
+
+Name: Ishita Sood
+Contribution:
+- Deployment Guide
+- GitHub workflow management
+
+------------------------------------------------------------
+
+ADDITIONAL NOTES
+----------------
+- This project is intended for academic and educational use only.
+- Deployment is performed locally.
+- The system follows standard MLOps best practices.
+- No cloud services are required.
+
+END OF DOCUMENT
